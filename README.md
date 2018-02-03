@@ -21,7 +21,7 @@ and Amazon's tooling to develop and test your API locally within in this model.
 
 * [An AWS account](https://aws.amazon.com/)
 * [Golang](https://golang.org/doc/install)
-* [Docker](https://docs.docker.com/install/#cloud)
+* [Docker](https://docs.docker.com/install)
 * [Node.js](https://nodejs.org/en/download/)
 * [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 * [AWS SAM Local](https://github.com/awslabs/aws-sam-local#windows-linux-macos-with-npm-recommended)
