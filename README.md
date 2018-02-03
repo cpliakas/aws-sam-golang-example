@@ -1,2 +1,3 @@
-# aws-sam-golang-example
-An example API written in golang using the Amazon Serverless Application Model (AWS SAM)
+# AWS SAM Golang Example
+
+An example API written in Golang using the Amazon Serverless Application Model (AWS SAM).
