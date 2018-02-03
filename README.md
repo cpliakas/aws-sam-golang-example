@@ -8,8 +8,8 @@ Go is arguably one of the easiest languages to write a RESTful API in. With the
 addition of [Go support for AWS Lambda](https://aws.amazon.com/blogs/compute/announcing-go-support-for-aws-lambda/)
 coupled with maturity of tooling around the [AWS Serverless Application Model](https://github.com/awslabs/serverless-application-model),
 deploying the API to serverless infrastrucutre is becoming much simpler, too.
-Thanks to the [APEX Gateway](github.com/apex/gateway) library, you can even
-write APIs in a familiar manner without changing how the code is structured.
+Thanks to the [APEX Gateway](https://github.com/apex/gateway) library, you can
+even write APIs in a familiar manner without changing how the code is structured.
 
 The purpose of this project is to give a slightly more complex example than the
 "hello world" ones provided by Amazon to show how [Go's standard net/http](https://golang.org/pkg/net/http/)
