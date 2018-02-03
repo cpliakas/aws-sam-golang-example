@@ -1,6 +1,7 @@
 # AWS SAM Golang Example
 
 [![Build Status](https://travis-ci.org/cpliakas/aws-sam-golang-example.svg?branch=master)](https://travis-ci.org/cpliakas/aws-sam-golang-example)
+[![Go Report Card](https://goreportcard.com/badge/github.com/cpliakas/aws-sam-golang-example)](https://goreportcard.com/report/github.com/cpliakas/aws-sam-golang-example)
 
 An example API written in Golang using the Amazon Serverless Application Model (AWS SAM).
 

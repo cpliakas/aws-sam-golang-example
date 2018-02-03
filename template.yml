@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 
 Description: An example API written in Golang
 Resources:
-  HelloWorld:
+  ExampleAPI:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: go1.x
