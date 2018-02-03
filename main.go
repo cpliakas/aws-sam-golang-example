@@ -8,6 +8,9 @@ import (
 	"github.com/apex/gateway"
 )
 
+// ContentType is the Content-Type header set in responses.
+const ContentType = "application/json; charset=utf8"
+
 // Message contains a simple message response.
 type Message struct {
 	Message string `json:"message"`
@@ -35,19 +38,22 @@ func GoodbyeHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(GoodbyeMessage)
 }
 
+// RegisterRoutes registers the API's routes.
+func RegisterRoutes() {
+	http.Handle("/", h(RootHandler))
+	http.Handle("/hello", h(HelloHandler))
+	http.Handle("/goodbye", h(GoodbyeHandler))
+}
+
 // h wraps a http.HandlerFunc and adds common headers.
 func h(next http.HandlerFunc) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json; charset=utf8")
+		w.Header().Set("Content-Type", ContentType)
 		next.ServeHTTP(w, r)
 	})
 }
 
 func main() {
-
-	http.Handle("/", h(RootHandler))
-	http.Handle("/hello", h(HelloHandler))
-	http.Handle("/goodbye", h(GoodbyeHandler))
-
+	RegisterRoutes()
 	log.Fatal(gateway.ListenAndServe(":3000", nil))
 }
