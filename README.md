@@ -39,10 +39,10 @@ go get -u github.com/cpliakas/aws-sam-golang-example
 
 ## Usage
 
-### Run The API Locally
+### Run the API Locally
 
-Ensure that all [Prerequisites](#prerequisites) are installed. If you are
-running on Mac OSX or Windows, ensure that the Docker VM is running.
+:warning: Ensure that all [Prerequisites](#prerequisites) are installed. On Mac
+OSX and Windows, ensure that the Docker VM is running.
 
 Build the binary, and run the API locally:
 
