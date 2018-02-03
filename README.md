@@ -31,8 +31,40 @@ and Amazon's tooling to develop and test your API locally within in this model.
 
 ## Installation
 
-*TODO*
+With a [correctly configured](https://golang.org/doc/install#testing) Go toolchain:
+
+```sh
+go get -u github.com/cpliakas/aws-sam-golang-example
+```
 
 ## Usage
 
-*TODO*
+### Run The API Locally
+
+Ensure that all [Prerequisites](#prerequisites) are installed. If you are
+running on Mac OSX or Windows, ensure that the Docker VM is running.
+
+Build the binary, and run the API locally:
+
+```sh
+GOOS=linux go build -o main
+sam local start-api
+```
+
+You can now consume the API using your tool of choice. [HTTPie](https://httpie.org/)
+is pretty awesome.
+
+```sh
+http localhost:3000/hello
+```
+
+```
+HTTP/1.1 200 OK
+Content-Length: 28
+Content-Type: application/json; charset=utf8
+Date: Sat, 03 Feb 2018 20:12:07 GMT
+
+{
+    "message": "Hello, world!"
+}
+```
