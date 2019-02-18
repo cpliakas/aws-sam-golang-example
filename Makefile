@@ -1,7 +1,11 @@
-PACKAGED_TEMPLATE = packaged.yaml
+
+# These environment variables must be set for deploymeny to work.
 S3_BUCKET := $(S3_BUCKET)
 STACK_NAME := $(STACK_NAME)
+
+# Common variables used throughout Makefile, not intended to be configured.
 TEMPLATE = template.yaml
+PACKAGED_TEMPLATE = packaged.yaml
 
 .PHONY: test
 test: install

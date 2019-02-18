@@ -83,3 +83,44 @@ Date: Sat, 03 Feb 2018 20:12:07 GMT
 ### Run the Worker Locally
 
 *TODO*
+
+
+### Deploy to AWS
+
+First, set the following environment variables replacing `<MY-BUCKET-NAME>` and
+`<MY-STACK-NAME>` as appropriate:
+`
+
+```sh
+export S3_BUCKET=<MY-BUCKET-NAME>
+export STACK_NAME=<MY-STACK-NAME>
+```
+
+Now build, package, and deploy the application:
+
+```sh
+GOOS=linux GOARCH=amd64 go build -o api ./service/api
+GOOS=linux GOARCH=amd64 go build -o error ./service/error
+GOOS=linux GOARCH=amd64 go build -o worker ./service/worker
+
+sam package --template-file template.yaml --s3-bucket $S3_BUCKET --output-template-file packaged.yaml
+sam deploy --stack-name $STACK_NAME --template-file packaged.yaml --capabilities CAPABILITY_IAM
+```
+
+or ...
+
+```sh
+make deploy
+```
+
+### View AWS Logs
+
+Assuming the same environment variables are set, run the following command to
+get the CloudWatch logs for the API.
+
+```sh
+sam logs -n Api --stack-name $STACK_NAME
+```
+
+Replace `Api` with `Worker` or `Error` to get logs for the Lambda functions in
+those components as well.
