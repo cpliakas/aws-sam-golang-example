@@ -89,11 +89,10 @@ Date: Sat, 03 Feb 2018 20:12:07 GMT
 
 First, set the following environment variables replacing `<MY-BUCKET-NAME>` and
 `<MY-STACK-NAME>` as appropriate:
-`
 
 ```sh
-export S3_BUCKET=<MY-BUCKET-NAME>
-export STACK_NAME=<MY-STACK-NAME>
+export S3_BUCKET="<MY-BUCKET-NAME>"
+export STACK_NAME="<MY-STACK-NAME>"
 ```
 
 Now build, package, and deploy the application:
@@ -113,10 +112,22 @@ or ...
 make deploy
 ```
 
+### Consume the Endpoint
+
+The API endpoint is captured in the CloudFormation stack's `Endpoint` output
+key. Either view the output value via the AWS Management Console, or run the
+following command assuming the [jq](https://stedolan.github.io/jq/) tool is
+installed:
+
+```sh
+aws cloudformation describe-stacks --stack-name $STACK_NAME | jq -r '.Stacks[0].Outputs[0].OutputValue'
+```
+
+Again, [HTTPie](https://httpie.org/) is a pretty awesome tool.
+
 ### View AWS Logs
 
-Assuming the same environment variables are set, run the following command to
-get the CloudWatch logs for the API.
+Run the following command to get the CloudWatch logs for the API.
 
 ```sh
 sam logs -n Api --stack-name $STACK_NAME
@@ -124,3 +135,7 @@ sam logs -n Api --stack-name $STACK_NAME
 
 Replace `Api` with `Worker` or `Error` to get logs for the Lambda functions in
 those components as well.
+
+:warning: The `sam` tool will throw a nasty stack trace if you try to view the
+logs before the Lambda function has been invoked. Only run this command after
+you have made requests to the corresponding handlers.
