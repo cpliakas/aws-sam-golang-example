@@ -37,7 +37,7 @@ unit testing.
 With a [correctly configured](https://golang.org/doc/install#testing) Go toolchain:
 
 ```sh
-go get -u github.com/cpliakas/aws-sam-golang-example
+git clone git@github.com:cpliakas/aws-sam-golang-example.git
 cd ./aws-sam-golang-example
 dep ensure
 ```
