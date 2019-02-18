@@ -11,16 +11,15 @@ Application Model (AWS SAM).
 Go is arguably one of the easiest languages in which to write a RESTful API.
 With the addition of [Go support for AWS Lambda](https://aws.amazon.com/blogs/compute/announcing-go-support-for-aws-lambda/)
 coupled with the maturity of tooling around the [AWS Serverless Application Model](https://github.com/awslabs/serverless-application-model),
-deploying the API to serverless infrastructure is becoming much more
+deploying Golang-based APIs to serverless infrastructure is becoming much more
 straightforward, too. Thanks to the [APEX Gateway](https://github.com/apex/gateway),
 you can even write APIs in a familiar manner without changing how the code is
 structured.
 
 The purpose of this project is to give a slightly more complicated example than
-the "hello world" ones provided by Amazon to show how [Go's standard net/http](https://golang.org/pkg/net/http/)
-package can play nicely in a serverless world with AWS [API Gateway](https://aws.amazon.com/api-gateway/)
-and [Lambda](https://aws.amazon.com/lambda/). It also shows how you can use Go
-and Amazon's tooling to develop and test your API locally within in this model.
+the "hello world" ones provided by Amazon with a toolchain that supports both
+local development and deployment to AWS and design patterns that facilitate
+unit testing.
 
 ## Prerequisites
 
