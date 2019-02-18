@@ -50,6 +50,7 @@ func JobHandlerFunc(svc lambdautils.SQS) http.HandlerFunc {
 
 // JobHandler implements http.Handler for the /job endpoint.
 func (h JobHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	lambdautils.Mustenv(lambdautils.EnvQueueURL)
 	response := sendJobMessage(h.svc, job.LogJobName)
 	json.NewEncoder(w).Encode(response)
 	w.WriteHeader(http.StatusCreated)
@@ -70,8 +71,6 @@ func sendJobMessage(svc lambdautils.SQS, name string) (response JobResponse) {
 
 // RegisterRoutes registers the API's routes.
 func RegisterRoutes() {
-	lambdautils.Mustenv(lambdautils.EnvQueueURL)
-
 	svc := lambdautils.NewSQS()
 	http.Handle("/", h(RootHandler))
 	http.Handle("/job", h(JobHandlerFunc(svc)))

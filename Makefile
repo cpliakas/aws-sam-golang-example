@@ -3,7 +3,7 @@
 S3_BUCKET := $(S3_BUCKET)
 STACK_NAME := $(STACK_NAME)
 
-# Common variables used throughout Makefile, not intended to be configured.
+# Common values used throughout the Makefile, not intended to be configured.
 TEMPLATE = template.yaml
 PACKAGED_TEMPLATE = packaged.yaml
 

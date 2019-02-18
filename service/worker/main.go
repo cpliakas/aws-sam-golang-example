@@ -3,10 +3,9 @@ package main
 import (
 	"context"
 
-	"github.com/cpliakas/aws-sam-golang-example/job"
-
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/cpliakas/aws-sam-golang-example/job"
 	"github.com/cpliakas/aws-sam-golang-example/lambdautils"
 )
 

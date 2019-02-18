@@ -134,7 +134,7 @@ sam logs -n Api --stack-name $STACK_NAME
 ```
 
 Replace `Api` with `Worker` or `Error` to get logs for the Lambda functions in
-those components as well.
+those resources as well.
 
 :warning: The `sam` tool will throw a nasty stack trace if you try to view the
 logs before the Lambda function has been invoked. Only run this command after
