@@ -2,3 +2,10 @@ language: go
 
 go:
   - 1.9
+
+install:
+  - go get -u github.com/golang/dep/...
+  - dep ensure
+
+script:
+  - make test

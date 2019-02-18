@@ -1,0 +1,87 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: An example serverless API and worker written in Golang.
+
+Resources:
+
+  Queue:
+    Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 20
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
+        maxReceiveCount: 3
+
+  DeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 15
+
+  Api:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: go1.x
+      Handler: api
+      Timeout: 10
+      Policies:
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt Queue.QueueName
+      Environment:
+        Variables:
+          QUEUE_URL: !Ref Queue
+      Events:
+        RootHandler:
+          Type: Api
+          Properties:
+            Path: '/'
+            Method: get
+        HelloHandler:
+          Type: Api
+          Properties:
+            Path: '/job'
+            Method: post
+
+  Worker:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: go1.x
+      Handler: worker
+      Timeout: 15
+      Policies:
+        - SQSPollerPolicy:
+            QueueName: !GetAtt Queue.QueueName
+      Environment:
+        Variables:
+          QUEUE_URL: !Ref Queue
+      Events:
+        QueueEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt Queue.Arn
+
+  Error:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: go1.x
+      Handler: error
+      Timeout: 15
+      Policies:
+        - SQSPollerPolicy:
+            QueueName: !GetAtt DeadLetterQueue.QueueName
+      Environment:
+        Variables:
+          QUEUE_URL: !Ref DeadLetterQueue
+      Events:
+        QueueEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt DeadLetterQueue.Arn
+
+Outputs:
+  Endpoint:
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  QueueUrl:
+    Value: !Ref Queue
+  DeadLetterQueueUrl:
+    Value: !Ref DeadLetterQueue

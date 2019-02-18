@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/cpliakas/aws-sam-golang-example.svg?branch=master)](https://travis-ci.org/cpliakas/aws-sam-golang-example)
 [![Go Report Card](https://goreportcard.com/badge/github.com/cpliakas/aws-sam-golang-example)](https://goreportcard.com/report/github.com/cpliakas/aws-sam-golang-example)
 
-An example API written in Golang using the Amazon Serverless Application Model (AWS SAM).
+An example API and Worker written in Golang using the Amazon Serverless
+Application Model (AWS SAM).
 
 ## Overview
 
@@ -25,6 +26,7 @@ and Amazon's tooling to develop and test your API locally within in this model.
 
 * [An AWS account](https://aws.amazon.com/)
 * [Golang](https://golang.org/doc/install)
+* [dep](https://golang.github.io/dep/)
 * [Docker](https://docs.docker.com/install)
 * [Node.js](https://nodejs.org/en/download/)
 * [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
@@ -36,6 +38,8 @@ With a [correctly configured](https://golang.org/doc/install#testing) Go toolcha
 
 ```sh
 go get -u github.com/cpliakas/aws-sam-golang-example
+cd ./aws-sam-golang-example
+dep ensure
 ```
 
 ## Usage
@@ -45,18 +49,24 @@ go get -u github.com/cpliakas/aws-sam-golang-example
 :warning: Make sure to install all the [Prerequisites](#prerequisites). On Mac
 OSX and Windows, ensure that the Docker VM is running.
 
-Build the binary, and run the API locally:
+Build the API and run it locally:
 
 ```sh
-GOOS=linux go build -o main
+GOARCH=amd64 GOOS=linux go build -o api ./service/api
 sam local start-api
+```
+
+or ...
+
+```sh
+make run
 ```
 
 You can now consume the API using your tool of choice. [HTTPie](https://httpie.org/)
 is pretty awesome.
 
 ```sh
-http localhost:3000/hello
+http localhost:3000/
 ```
 
 ```
@@ -69,3 +79,7 @@ Date: Sat, 03 Feb 2018 20:12:07 GMT
     "message": "Hello, world!"
 }
 ```
+
+### Run the Worker Locally
+
+*TODO*
