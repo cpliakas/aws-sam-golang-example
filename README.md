@@ -18,8 +18,8 @@ structured.
 
 The purpose of this project is to give a slightly more complicated example than
 the "hello world" ones provided by Amazon with a toolchain that supports both
-local development and deployment to AWS and design patterns that facilitate
-unit testing.
+local development and deployment to AWS as well as design patterns that
+facilitate unit testing.
 
 ## Prerequisites
 
