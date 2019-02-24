@@ -5,12 +5,15 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/sqs"
+	"github.com/aws/aws-sdk-go/service/sqs/sqsiface"
 	"github.com/cpliakas/aws-sam-golang-example/job"
 	"github.com/cpliakas/aws-sam-golang-example/lambdautils"
 )
 
 // Worker consumes the messages and executes the job.
-func Worker(ctx context.Context, event events.SQSEvent, svc lambdautils.SQS) error {
+func Worker(ctx context.Context, event events.SQSEvent, svc sqsiface.SQSAPI) error {
 	var err error
 
 	for _, message := range event.Records {
@@ -28,8 +31,8 @@ func Worker(ctx context.Context, event events.SQSEvent, svc lambdautils.SQS) err
 }
 
 func handler(ctx context.Context, event events.SQSEvent) error {
-	lambdautils.Mustenv(lambdautils.EnvQueueURL)
-	svc := lambdautils.NewSQS()
+	sess := session.Must(session.NewSession())
+	svc := sqs.New(sess)
 	return Worker(ctx, event, svc)
 }
 

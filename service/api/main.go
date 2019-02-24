@@ -7,7 +7,9 @@ import (
 
 	"github.com/apex/gateway"
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
+	"github.com/aws/aws-sdk-go/service/sqs/sqsiface"
 	"github.com/cpliakas/aws-sam-golang-example/job"
 	"github.com/cpliakas/aws-sam-golang-example/lambdautils"
 )
@@ -39,11 +41,11 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 
 // JobHandler implements http.Handler for the /job endpoint.
 type JobHandler struct {
-	svc lambdautils.SQS
+	svc sqsiface.SQSAPI
 }
 
 // JobHandlerFunc returns a http.HandlerFunc for the /job endpoint.
-func JobHandlerFunc(svc lambdautils.SQS) http.HandlerFunc {
+func JobHandlerFunc(svc sqsiface.SQSAPI) http.HandlerFunc {
 	jh := JobHandler{svc: svc}
 	return jh.ServeHTTP
 }
@@ -57,7 +59,7 @@ func (h JobHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 // sendJobMessage sends an encoded job.Message to SQS.
-func sendJobMessage(svc lambdautils.SQS, name string) (response JobResponse) {
+func sendJobMessage(svc sqsiface.SQSAPI, name string) (response JobResponse) {
 
 	output := lambdautils.SendMessage(svc, &sqs.SendMessageInput{
 		QueueUrl:    aws.String(lambdautils.QueueURL()),
@@ -71,7 +73,9 @@ func sendJobMessage(svc lambdautils.SQS, name string) (response JobResponse) {
 
 // RegisterRoutes registers the API's routes.
 func RegisterRoutes() {
-	svc := lambdautils.NewSQS()
+	sess := session.Must(session.NewSession())
+	svc := sqs.New(sess)
+
 	http.Handle("/", h(RootHandler))
 	http.Handle("/job", h(JobHandlerFunc(svc)))
 }

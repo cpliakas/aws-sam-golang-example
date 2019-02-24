@@ -9,6 +9,7 @@ PACKAGED_TEMPLATE = packaged.yaml
 
 .PHONY: test
 test: install
+	go test -v ./lambdautils
 	go test -v ./service/api
 	go test -v ./service/error
 	go test -v ./service/worker
