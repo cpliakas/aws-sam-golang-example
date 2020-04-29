@@ -20,11 +20,11 @@ clean:
 
 .PHONY: install
 install:
-	dep ensure
+	go get ./...
 
 .PHONY: update
 update:
-	dep ensure -update
+	go get -u ./...
 
 api: ./service/api/main.go
 	go build -o api ./service/api

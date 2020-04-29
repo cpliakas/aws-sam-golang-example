@@ -25,7 +25,6 @@ facilitate unit testing.
 
 * [An AWS account](https://aws.amazon.com/)
 * [Golang](https://golang.org/doc/install)
-* [dep](https://golang.github.io/dep/docs/installation.html)
 * [Docker](https://docs.docker.com/install)
 * [Node.js](https://nodejs.org/en/download/)
 * [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
@@ -39,7 +38,6 @@ With a [correctly configured](https://golang.org/doc/install#testing) Go toolcha
 ```sh
 go get github.com/cpliakas/aws-sam-golang-example
 cd $GOPATH/src/github.com/cpliakas/aws-sam-golang-example
-dep ensure
 ```
 
 ## Usage
@@ -48,8 +46,6 @@ dep ensure
 
 :warning: Make sure to install all the [Prerequisites](#prerequisites). On Mac
 OSX and Windows, ensure that the Docker VM is running.
-
-Build the API and run it locally:
 
 ```sh
 GOARCH=amd64 GOOS=linux go build -o api ./service/api
