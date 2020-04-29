@@ -1,11 +1,10 @@
 language: go
 
 go:
-  - 1.9
+  - master
 
 install:
-  - go get -u github.com/golang/dep/...
-  - dep ensure
+  - make install
 
 script:
   - make test
