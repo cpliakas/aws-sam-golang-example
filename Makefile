@@ -1,5 +1,5 @@
 
-# These environment variables must be set for deploymeny to work.
+# These environment variables must be set for deployment to work.
 S3_BUCKET := $(S3_BUCKET)
 STACK_NAME := $(STACK_NAME)
 
