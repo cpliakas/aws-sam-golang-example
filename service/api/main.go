@@ -83,6 +83,7 @@ func RegisterRoutes() {
 // h wraps a http.HandlerFunc and adds common headers.
 func h(next http.HandlerFunc) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("event: %v", r)
 		w.Header().Set("Content-Type", ContentType)
 		next.ServeHTTP(w, r)
 	})

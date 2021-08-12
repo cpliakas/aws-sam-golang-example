@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"log"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -15,6 +16,8 @@ import (
 // Worker consumes the messages and executes the job.
 func Worker(ctx context.Context, event events.SQSEvent, svc sqsiface.SQSAPI) error {
 	var err error
+
+	log.Printf("event: %v", event)
 
 	for _, message := range event.Records {
 
@@ -31,6 +34,7 @@ func Worker(ctx context.Context, event events.SQSEvent, svc sqsiface.SQSAPI) err
 }
 
 func handler(ctx context.Context, event events.SQSEvent) error {
+	log.Printf("event: %v", event)
 	sess := session.Must(session.NewSession())
 	svc := sqs.New(sess)
 	return Worker(ctx, event, svc)
