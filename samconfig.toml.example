@@ -1,0 +1,9 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "<<CFN_STACK_NAME>>"
+s3_bucket = "<<S3_BUCKET_NAME>>"
+s3_prefix = "<<CFN_STACK_NAME>>"
+region = "us-east-2"
+capabilities = "CAPABILITY_IAM"
