@@ -11,13 +11,13 @@ import (
 	"net/http"
 )
 
-type test_struct struct {
+type Payload struct {
 	Foo string
 }
 
 func test(rw http.ResponseWriter, req *http.Request) {
 	decoder := json.NewDecoder(req.Body)
-	var t test_struct
+	var t Payload
 	err := decoder.Decode(&t)
 	if err != nil {
 		panic(err)
