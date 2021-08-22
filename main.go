@@ -5,9 +5,6 @@ package main
 // Test:
 // $ curl -X POST -d "{\"foo\": \"that\"}" http://localhost:8082/test
 
-// still getting "Missing Auth Token"
-// $ curl -X POST -d "{\"foo\": \"that\"}" http://localhost:3000/
-
 import (
 	"encoding/json"
 	"log"
@@ -30,5 +27,6 @@ func test(rw http.ResponseWriter, req *http.Request) {
 
 func main() {
 	http.HandleFunc("/test", test)
+	http.HandleFunc("/", test)
 	log.Fatal(http.ListenAndServe(":8082", nil))
 }
